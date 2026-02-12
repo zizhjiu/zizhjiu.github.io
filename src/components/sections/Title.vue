@@ -1,317 +1,372 @@
 <script lang="ts" setup>
-
 import { ElIcon } from 'element-plus'
 import { Document, Files, MagicStick, Picture, DataAnalysis, Film } from '@element-plus/icons-vue'
-
-// logo地址，没有则置为""即可
-const logo = './logo.png'
-
-// 标题
-const title = 'Academic Project Page Template'
-
-// 标题颜色
-const title_color = '#000000'
-
-// 标题补充，没有则置为''即可
-const title_supp = ' (Vue based)'
-
-// 标题补充颜色
-const title_supp_color = '#42B883'
-
-// 按钮颜色
-const btn_color = '#444444'
-
-// 作者清单（包含作者姓名、头像、主页、地址序号）
-const authors = [
-  {
-    name: "Your Name",
-    icon: "./icon/junyaohu.jpg",
-    homepage: "https://junyaohu.github.io/",
-    address_flag: "1,#"
-  },
-  {
-    name: "Anya Forger",
-    icon: "./icon/anya.jpg",
-    homepage: "https://www.bilibili.com/video/BV1jv4y1P7Bb",
-    address_flag: "2,#"
-  },
-  {
-    name: "BugCat Capoo",
-    icon: "./icon/capoo.webp",
-    homepage: "https://zh.moegirl.org.cn/%E7%8C%AB%E7%8C%AB%E8%99%AB%E5%92%96%E6%B3%A2",
-    address_flag: "1,*"
-  },
+const newsList = [
+    "[2026-02-12] Personal homepage officially launched.",
+    "[2026-02-10] Top 10 Outstanding Student Award, 2025, Institute of Big Data Science and Industry.",
+  " [2026-01-26] 🎉🎉 1 paper has been accepted by ICLR 2026! 🎉🎉",
 ]
 
-// 地址清单（包含地址名称、头像、主页、地址序号）
-const addresses = [
-  {
-    address_flag: "1",
-    name: "Home University",
-    icon: "./icon/home.png",
-    homepage: "https://github.com/hmuniversity"
-  },
-  {
-    address_flag: "2",
-    name: "IKUN University",
-    icon: "./icon/ikun.avif",
-    homepage: "https://www.bilibili.com/video/BV178411Y7QB"
-  },
+
+// 个人信息
+const profile = {
+  name: "Zizheng Jiu 酒子峥",
+  photo: "./jiu.jpg", // 4:3比例头像
+  bio: "Shanxi University | M.Sc.",
+  contact: [
+    { type: "Email", label: "Email", link: "mailto:jiu03699@gmail.com" },
+    { type: "GitHub", label: "GitHub", link: "" },
+    { type: "Bilibili", label: "Bilibili", link: "https://space.bilibili.com/441386401?spm_id_from=333.788.0.0" },
+  ]
+}
+
+// 右侧导航菜单
+const menuItems = [
+  { name: "🔎 About Me", link: "#about",desc: "I am a 3rd-year Master’s student at the Institute of Big Data Science and Industry, Shanxi University, focusing on Image Clustering, Multi-Modal Foundation Models, and AI for Science (AI4Sports), supervised by Prof. Yuhua Qian and Assoc. Prof. Feijiang Li. I completed my undergraduate studies in Automation at Jiangsu University.\n" +
+        "\n" +
+        "I am passionate about sports, with football as my main discipline, and I also enjoy running, swimming, and fitness training. I emphasize scientific and functional training and am keen on applying my knowledge in computer science and AI to make sports training more effective and data-driven. I believe that technology is not something distant or unattainable—it should serve everyone, helping people achieve better performance and a healthier lifestyle."  },
+  { name: "📢 News", link: "#news" },
+  { name: "📝 Research", link: "#research" },
 ]
-
-// 共一和通讯提示
-const con_and_corresponding_author = 
-  "#: Equal Contribution. *: Corresponding Author."
-
-// 最新消息
-const news = "🔥 [2024-12-15] This template project is still under development."
-
-// 强调内容
-const emphases = [
-  "🎉 [ABCD 2024] Poster",
-  "🥰 欢迎关注“减论”微信公众号/B站/知乎/小红书",
-  "传递人工智能算法科普教育的减约理解",
-  "提升信息效率及认知维度"
-]
-
-// 提供引导资料链接
-const buttons = [
+const researchList = [
   {
-    disabled: true,
-    name: "Paper",
-    component: Document,
-  },
-  {
-    disabled: true,
-    name: "中译版",
-    component: Document,
-  },
-  {
-    disabled: false,
-    name: "Code",
-    link: "https://github.com/JunyaoHu/academic-project-page-template-vue",
-    component: Files,
-  },
-  {
-    disabled: false,
-    name: "Demo",
-    link: "https://junyaohu.github.io/academic-project-page-template-vue",
-    component: MagicStick,
-  },
-  {
-    disabled: true,
-    name: "Poster",
-    component: Picture,
-  },
-  {
-    disabled: true,
-    name: "Slide",
-    component: DataAnalysis,
-  },
-  {
-    disabled: false,
-    name: "Video (减论)",
-    link: "https://www.bilibili.com/video/BV15XkgYiE73/",
-    component: Film,
-  },
-  {
-    disabled: false,
-    name: "Video (Tutorial)",
-    link: "https://www.bilibili.com/video/BV1oUrfYzEqZ",
-    component: Film,
-  },
+    title: "Spatial Structure and Selective Text Jointly Facilitate Image Clustering",
+    authors: "Zizheng Jiu*, Feijiang Li*, Jieting Wang, Yuhua Qian✉️, Lu Chen",
+    venue: "ICLR 2026",
+    image: "./papers/SATC.jpg",   // 架构图小图
+    paper: "https://arxiv.org/abs/xxxx",
+    webpage: "https://zizhjiu.github.io/project-page",
+    code: "https://github.com/zizhjiu/project"
+  }
 ]
 
 </script>
 
 <template>
-  <div>
+  <div class="container">
+    <!-- 左侧个人信息 -->
+    <div class="left-panel">
+      <el-image :src="profile.photo" class="profile-photo" fit="cover" />
+      <h2 class="profile-name">{{ profile.name }}</h2>
+      <p class="profile-bio">{{ profile.bio }}</p>
 
-    <!-- 最新消息提示 -->
-    <el-row justify="center">
-      <el-col :span="24">
-        <el-alert title="🔥 This template is still under development." type="success" />
-      </el-col>
-    </el-row>
+      <div class="contact-row">
+        <span class="contact-item">
+          📍Taiyuan, China
+        </span>
 
-    <!-- 文章logo -->
-    <el-row v-if="logo" justify="center">
-      <el-image :src="logo" class="logo" fit="cover" />
-    </el-row>
+        <a
+          v-for="c in profile.contact"
+          :key="c.type"
+          :href="c.link"
+          target="_blank"
+          class="contact-item"
+        >
+          <span v-if="c.type === 'Email'">✉️</span>
+          <span v-if="c.type === 'GitHub'">🐙</span>
+          <span v-if="c.type === 'Bilibili'">📺</span>
+          {{ c.label }}
+        </a>
+      </div>
+    </div>
 
-    <!-- 文章标题 -->
-    <el-row justify="center">
-      <el-col :span="20">
-        <h1 class="paper-title">
-          <span v-if="title" :style="{color:title_color}"> {{ title }}</span>
-          <span v-if="title_supp" :style="{color:title_supp_color}"> {{ title_supp }}</span>
-        </h1>
-      </el-col>
-    </el-row>
+    <!-- 右侧内容 -->
+    <div class="right-panel">
+      <ul class="menu-list">
 
-    <!-- 作者名单 -->
-    <el-row justify="center">
-      <a :href=author.homepage v-for="author in authors">
-        <el-button class="title-button" type="primary" text>
-          <el-avatar v-if="author.icon" :size="40" :src="author.icon" />
-          <span class="author">
-            {{ author.name }}<sup v-if="author.address_flag" class="name_sup">{{ author.address_flag }}</sup>
-          </span>
-        </el-button>
-      </a>
-    </el-row>
+        <!-- About -->
+        <li id="about">
+          <a href="#about">🔎 About Me</a>
+          <p class="menu-desc">{{ menuItems[0].desc }}</p>
+        </li>
 
-    <!-- 地址名单 -->
-    <el-row justify="center">
-      <a :href=address.homepage v-for="address in addresses">
-        <el-button class="title-button" type="primary" text>
-          <el-avatar v-if="address.icon" :size="40" :src="address.icon" />
-          <span class="address">
-            <sup v-if="address.address_flag" class="address_sup">{{ address.address_flag }}</sup>{{ address.name }}
-          </span>
-        </el-button>
-      </a>
-    </el-row>
+        <!-- News -->
+        <li id="news">
+          <a href="#news">📢 News</a>
+          <p
+            v-for="(n, idx) in newsList"
+            :key="idx"
+            class="news-text"
+          >
+            {{ n }}
+          </p>
+        </li>
 
-    <!-- 共一和通讯提示内容 -->
-    <el-row justify="center" class="con-cor">
-        {{ con_and_corresponding_author }}
-    </el-row>
+        <!-- Research -->
+        <li id="research">
+          <a href="#research">📝 Research</a>
 
-    <!-- 强调内容 -->
-    <el-row justify="center" class="emphasis" v-for="emphasis in emphases">
-        {{ emphasis }}
-    </el-row>
+          <div class="paper-list">
+            <div
+              v-for="(paper, idx) in researchList"
+              :key="idx"
+              class="paper-item"
+            >
+              <!-- 左侧架构图 -->
+              <div class="paper-image">
+                <el-image
+                  :src="paper.image"
+                  fit="contain"
+                  class="paper-img"
+                />
+              </div>
 
-    <!-- 提供引导按钮 -->
-    <el-row justify="center" style="margin-bottom: 20px;">
-      <el-col :span="20">
-        <el-row justify="center">
-          <a :href=button.link v-for="button in buttons">
-            <el-button class="guidance-button" size="default" :color="btn_color" :disabled="button.disabled" round>
-              <el-icon :size="18">
-                <component :is="button.component" />
-              </el-icon>
-              <span class="btn-text">{{ button.name }}</span>
-            </el-button>
-          </a>
-        </el-row>
-      </el-col>
-    </el-row>
+              <!-- 右侧论文信息 -->
+              <div class="paper-info">
+                <div class="paper-title">
+                  {{ paper.title }}
+                </div>
 
+                <div class="paper-authors">
+                  {{ paper.authors }}
+                </div>
+
+                <div class="paper-venue">
+                  {{ paper.venue }}
+                </div>
+
+                <div class="paper-links">
+                  <a :href="paper.paper" target="_blank">📄 Paper</a>
+                  <a :href="paper.webpage" target="_blank">🌐 Webpage</a>
+                  <a :href="paper.code" target="_blank">💻 Code</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
   </div>
 </template>
 
+
 <style scoped>
+/* 整体容器，限制最大宽度为 A4 */
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  min-height: auto;
+  font-family: "Arial", sans-serif;
 
-/* 文章标题字体、字间距、居中排布、字号 */
-.paper-title {
-  font-family: "MyFont", Verdana, sans-serif;
-  letter-spacing: 2px;
-  font-size: 42px;
-  margin: 32px;
+  max-width: 2000px;  /* A4纸宽度约 794px */
+  margin: 0 auto;    /* 居中 */
+}
+
+/* 左侧个人信息 */
+.left-panel {
+  flex: 0.8;
+  padding-right: 5px;  /* 缩小右侧间距 */
   text-align: center;
 }
 
-/* 姓名和地址按钮 */
-.title-button {
-  margin: 10px 3px;
+/* 头像，4:3比例 */
+.profile-photo {
+  width: 100%;
+  max-width: 240px;  /* 限制最大宽度 */
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  box-shadow: #ccc 0px 0px 6px 2px;
+  margin-bottom: 20px;
 }
 
-/* 姓名和地址按钮光标悬浮 */
-.title-button:hover {
-  margin: 10px 8px;
-}
-
-/* 引导材料按钮 */
-.guidance-button {
-  margin: 8px 5px;
-  box-shadow: #d8d8d8 1px 1px 1px 1px;
-}
-
-/* 姓名属性 */
-.author {
-  font-size: 18px;
-  margin-left: 3px;
-}
-
-/* 姓名上标属性 */
-.name_sup {
-  color: #606266; 
-  margin-left: 3px;
-}
-
-/* 地址属性 */
-.address {
-  font-size: 18px;
-}
-
-/* 地址上标属性 */
-.address_sup {
-  color: #606266; 
-  margin-right: 1px;
-}
-
-/* 头像属性 */
-.el-avatar {
-  margin-right: 6px;
-  box-shadow: #b7b7b7 0px 0px 3px 1px;
-}
-
-/* 共一和通讯文字属性 */
-.con-cor {
-  font-family: Arial;
-  font-size: 14px;
-  margin: 18px 0px;
-  text-align: center;
-}
-
-/* 强调信息属性 */
-.emphasis {
-  color: chocolate;
+/* 姓名 */
+.profile-name {
+  font-size: 24px;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin: 8px;
-  font-size: 22px;
-  text-align: center;
 }
 
-/* 引导材料按钮文字属性 */
-.btn-text {
+/* 简介 */
+.profile-bio {
   font-size: 18px;
-  color: #ffffff;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
-.el-alert {
-  margin: 10px 0 0;
+/* 联系方式 */
+.contact-info p {
+  font-size: 16px;
+  margin-bottom: 6px;
 }
-
-.el-alert:first-child {
-  margin: 0;
-}
-
-.logo {
-  width: 150px; 
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: #ced3dc 0px 0px 3px 2px;
-  margin-top: 40px;
-}
-
-/* 手机端链接样式处理 */
-a:-webkit-any-link {
+.contact-info a {
+  color: #42B883;
   text-decoration: none;
 }
+.contact-info a:hover {
+  text-decoration: underline;
+}
 
-/* 取消鼠标焦点悬浮在链接上的颜色装饰 */
-a:hover {
+/* 右侧菜单 */
+.right-panel {
+  flex: 2;
+  border-left: 2px solid #f0f0f0;
+  padding-left: 50px; /* 缩小左侧间距 */
+}
+.menu-list {
+  list-style: none;
+  padding: 0;
+  font-size: 30px;
+}
+.menu-list li {
+  margin-bottom: 25px;
+}
+.menu-desc {
+  font-size: 20px;
+  color: #888;
+  margin-top: 4px;
+  max-width: 1400px;
+  /* 两端对齐 */
+  text-align: justify;
+  text-align-last: left; /* 最后一行左对齐 */
+  white-space: pre-line;
+}
+.menu-list a {
+  text-decoration: none;
+  color: #444;
+  font-weight: bold;
+  font-size: 28px;
+}
+.menu-list a:hover {
+  color: #42B883;
+}
+.news-text {
+  font-size: 20px;
+  color: black;
+  margin-top: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+  font-size: 16px;
+  color: #444;
+}
+
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
   color: inherit;
-  border-bottom: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-/* 链接装饰，取消下划线和链接颜色 */
-a {
-	text-decoration: None;
-	color: inherit;
+.contact-item:hover {
+  color: #42B883;
+  transform: translateY(-1px);
+}
+/* 论文列表 */
+.paper-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
+/* 单篇论文 */
+.paper-item {
+  display: flex;
+  gap: 20px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #fafafa;
+  transition: all 0.25s ease;
+}
+
+.paper-item:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+/* 左侧图片 */
+.paper-image {
+  flex: 0 0 200px;
+}
+
+.paper-img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+/* 右侧内容 */
+.paper-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 题目 */
+.paper-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+/* 作者 */
+.paper-authors {
+  font-size: 15px;
+  color: #666;
+}
+
+/* 会议 */
+.paper-venue {
+  font-size: 15px;
+  font-weight: 600;
+  color: #42b883;
+  margin: 4px 0 6px;
+}
+
+/* 按钮区域 */
+.paper-links {
+  display: flex;
+  gap: 14px;
+}
+
+.paper-links a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.paper-links a:hover {
+  color: #42b883;
+  border-color: #42b883;
+  background: rgba(66,184,131,0.08);
+}
+
+
+
+/* 手机端自动换行 */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    max-width: 100%;
+    padding: 10px;
+  }
+  .right-panel {
+    border-left: none;
+    border-top: 2px solid #f0f0f0;
+    padding-left: 0;
+    padding-top: 20px;
+  }
+}
 </style>
+

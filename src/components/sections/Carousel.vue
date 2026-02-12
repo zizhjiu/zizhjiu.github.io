@@ -20,12 +20,12 @@ export default {
       ],
       // 选择要轮播的照片
       image_paths: [
-        "./carousel/1.jpg",
-        "./carousel/2.jpg",
-        "./carousel/3.jpg",
-        "./carousel/4.jpg",
-        "./carousel/5.jpg",
-        "./carousel/6.jpg",
+        "./1.jpg",
+        "./2.jpg",
+        "./3.JPG",
+        "./4.jpg",
+        "./5.JPG",
+        "./6.jpg",
       ],
     }
   }
@@ -39,6 +39,7 @@ export default {
       <swiper
         :loop="true"
         :slidesPerView="1"
+        :space-between="20"
         :breakpoints="{
           600: {
             slidesPerView: 2,
@@ -48,16 +49,16 @@ export default {
           },
         }"
         :modules="modules"
-        :navigation="{ 
+        :navigation="{
           hideOnClick:true,
         }"
-        :pagination="{ 
+        :pagination="{
           hideOnClick:true,
-          clickable:true, 
-          type:'bullets' 
+          clickable:true,
+          type:'bullets'
         }"
-        :autoplay="{ 
-          delay:5000,
+        :autoplay="{
+          delay:4000,
           disableOnInteraction:false,
           pauseOnMouseEnter:true,
         }"
@@ -69,7 +70,7 @@ export default {
     </el-col>
   </el-row>
 </template>
-  
+
 <style>
 
 /* 设置Swiper风格 */
