@@ -126,7 +126,7 @@ const researchList = [
                 </div>
 
                 <div class="paper-links">
-                  <a :href="paper.paper" target="_blank">📄 Paper</a>
+                  <a href="https://openreview.net/forum?id=3DOgmfZ2k6&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2026%2FConference%2FAuthors%23your-submissions)" target="_blank">📄 Paper</a>
                   <a :href="paper.webpage" target="_blank">🌐 Webpage</a>
                   <a :href="paper.code" target="_blank">💻 Code</a>
                 </div>
